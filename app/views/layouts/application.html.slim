@@ -1,0 +1,53 @@
+doctype html
+html lang="en" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
+    meta content="" name="description" /
+    meta content="" name="author" /
+    title Timeline
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "bootstrap.min"
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "bootstrap.min", "data-turbolinks-track" => true
+    
+    /! HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    /! WARNING: Respond.js doesn't work if you view the page via file://
+    /![if lt IE 9]
+      | <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script
+      | <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script
+  body
+    /! Navigation
+    nav.navbar.navbar-inverse.navbar-fixed-top role="navigation" 
+      .container
+        /! Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button" 
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href="#"  Timeline
+        /! Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a href="#"  About
+            li
+              a href="#"  Services
+            li
+              a href="#"  Contact
+        /! /.navbar-collapse
+      /! /.container
+    /! Page Content
+    .container
+      = yield
+    /! /.container
+    /! jQuery Version 1.11.1
+    script src="js/jquery.js" 
+    /! Bootstrap Core JavaScript
+    script src="js/bootstrap.min.js"
+    /! Application JavaScript
+    /! script src="js/application.js"

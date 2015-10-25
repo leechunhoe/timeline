@@ -1,0 +1,61 @@
+.row
+  .col-lg-12.col-md-12.col-sm-12
+    h1 My Timeline
+    
+.row
+  .col-lg-6.col-md-6.col-sm-6.text-left
+    button.btn.btn-default Previous
+  .col-lg-6.col-md-6.col-sm-6.text-right
+    button.btn.btn-default Next
+    
+.row
+  .col-lg-12.col-md-12.col-sm-12
+    table.table-responsive.table-striped.table-timeline-month
+      thead
+        tr
+          th colspan=Time.days_in_month(Application.month_selection.month, Application.month_selection.year)
+            = Application.month_selection.strftime("%B %Y")
+        tr
+          - (1..Time.days_in_month(Application.month_selection.month, Application.month_selection.year)).each do |i|
+            - if Application.isToday(i)  
+              th.today = i
+            - else
+              th = i
+      tbody
+        - @events.each do |event|
+          tr    
+            - (1..Time.days_in_month(Application.month_selection.month, Application.month_selection.year)).each do |i|
+              - if (event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month && event.start_date.day == i)
+                td.occupied onclick="ranjiao('mailuan');" colspan=(event.end_date-event.start_date).to_i/86400
+                    = event.name
+              - elsif !(event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month) && (event.end_date.year >= Application.month_selection.year && event.end_date.month >= Application.month_selection.month && i == 1)
+                td.occupied onclick="ranjiao('mailuan');" colspan=(event.end_date-event.start_date).to_i/86400
+                    = event.name
+              - else
+                td　onclick="alert('mailuan');"
+    
+    
+    table.table-striped
+      thead
+        tr
+          th Name
+          th Start date
+          th End date
+          th Is completed
+          th
+          th
+          th
+      tbody
+        - @events.each do |event|
+          tr
+            td = event.name
+            td = event.start_date
+            td = event.end_date
+            td = event.is_completed
+            td = link_to 'Show', event
+            td = link_to 'Edit', edit_event_path(event)
+            td = link_to 'Destroy', event, data: {:confirm => 'Are you sure?'}, :method => :delete
+    
+    br
+    
+    = link_to 'New Event', new_event_path
