@@ -11,7 +11,7 @@ html lang="en"
     = stylesheet_link_tag "application"
     = stylesheet_link_tag "bootstrap.min"
     = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag "bootstrap.min", "data-turbolinks-track" => true
+    /! = javascript_include_tag "bootstrap.min", "data-turbolinks-track" => true
     
     /! HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     /! WARNING: Respond.js doesn't work if you view the page via file://
@@ -34,11 +34,11 @@ html lang="en"
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a href="#"  About
+              a href="#"  One
             li
-              a href="#"  Services
+              a href="#"  Tsu
             li
-              a href="#"  Contact
+              a href="#"  Tree
         /! /.navbar-collapse
       /! /.container
     /! Page Content
@@ -48,6 +48,4 @@ html lang="en"
     /! jQuery Version 1.11.1
     script src="js/jquery.js" 
     /! Bootstrap Core JavaScript
-    script src="js/bootstrap.min.js"
-    /! Application JavaScript
-    /! script src="js/application.js"
+    /! script src="js/bootstrap.min.js"

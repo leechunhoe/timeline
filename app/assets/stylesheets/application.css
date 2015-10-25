@@ -44,3 +44,7 @@ body {
 .table-timeline-month .occupied {
   background-color: SkyBlue;
 }
+.table-timeline-month .occupied a {
+  display: table;
+  width: 100%;
+}
