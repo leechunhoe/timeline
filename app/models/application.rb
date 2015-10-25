@@ -8,40 +8,44 @@ class Application < ActiveRecord::Base
     	Time.days_in_month(month_selection.month, month_selection.year)
 	end
 	
+	private
 	def self.is_today(day)
-		month_selection.year == Time.now.year && month_selection.month == Time.now.month && day == Time.now.day 
+		is_same_year_same_month(month_selection, Time.now) && day == Time.now.day 
+	end
+	
+	private	
+	def self.is_same_year_same_month(date1, date2)
+		date1.year == date2.year && date1.month == date2.month
+	end
+	
+	private	
+	def self.month_of_date1_is_later_than_date2(date1, date2)
+		(date1.year == date2.year && date1.month > date2.month) || date1.year > date2.year 
 	end
 	
 	def self.is_start_date(event, day)
-		(event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month && event.start_date.day == day) || !(event.start_date.year >= Application.month_selection.year && event.start_date.month >= Application.month_selection.month) && (event.end_date.year >= Application.month_selection.year && event.end_date.month >= Application.month_selection.month && day == 1)
+		(is_same_year_same_month(month_selection, event.start_date) && event.start_date.day == day) || (month_of_date1_is_later_than_date2(Application.month_selection, event.start_date) && !month_of_date1_is_later_than_date2(Application.month_selection, event.end_date) && day == 1)
 	end
 	
 	def self.is_in_duration(event, day)
-		(event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month && day > event.start_date.day) || !(event.start_date.year >= Application.month_selection.year && event.start_date.month >= Application.month_selection.month) && (event.end_date.year >= Application.month_selection.year && event.end_date.month >= Application.month_selection.month && day == 1)
+		this_date = Date.new(month_selection.year, month_selection.month, day)
+		
+		this_date > event.start_date && this_date <= event.end_date
 	end
 	
 	def self.duration_in_selected_month(event)
-		
-		if event.end_date.year == Application.month_selection.year && event.end_date.month == Application.month_selection.month
+		if is_same_year_same_month(event.end_date, Application.month_selection)
 			end_date = event.end_date.day
 		else
 			end_date = Application.month_selection_day_count 
 		end
 		
-		if event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month
+		if is_same_year_same_month(event.start_date, Application.month_selection)
 			start_date = event.start_date.day
 		else
-			start_date = 1 
+			start_date = 1
 		end
 		
 		end_date - start_date + 1
-		
-		# if event.end_date.year == Application.month_selection.year && event.end_date.month == Application.month_selection.month
-		# 	(event.end_date-event.start_date).to_i/86400+1
-		# elsif event.end_date.year > Application.month_selection.year || (event.end_date.year == Application.month_selection.year && event.end_date.month > Application.month_selection.month)
-		# 	Application.month_selection_day_count-event.start_date.day+1
-		# else
-		# 	1
-		# end
 	end
 end

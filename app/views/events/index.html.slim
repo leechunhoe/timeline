@@ -26,6 +26,7 @@
             - if Application.is_start_date(event, i)
               td.occupied colspan=Application.duration_in_selected_month(event)
                 = event.name
+            - elsif Application.is_in_duration(event, i)
             - else
               td
               
