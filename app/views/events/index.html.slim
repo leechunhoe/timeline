@@ -14,21 +14,24 @@
   .col-lg-12.col-md-12.col-sm-12
     table.table-responsive.table-striped.table-timeline-month
       thead
-        - for i in 1..Application.month_selection_day_count
-          - if Application.is_today(i)
-            th.today = i
-          - else
-            th = i
+      - for i in 1..Application.month_selection_day_count
+        - if Application.is_today(i)
+          th.today = i
+        - else
+          th = i
       tbody
-        - @events.each do |event|
-          tr
-          - for i in 1..Application.month_selection_day_count
-            - if Application.is_start_date(event, i)
-              td.occupied colspan=Application.duration_in_selected_month(event)
-                = link_to event.name, event
-            - elsif Application.is_in_duration(event, i)
-            - else
-              td
+      - @events.each do |event|
+        tr
+        - for i in 1..Application.month_selection_day_count
+          - if Application.is_start_date(event, i)
+            td.occupied colspan=Application.duration_in_selected_month(event)
+              = link_to event.name, event
+          - elsif Application.is_in_duration(event, i)
+          - else
+            td
+      tr
+      - for i in 1..Application.month_selection_day_count
+        td onclick="window.location.href = '/events/new'"
               
     table.table-striped
       thead
