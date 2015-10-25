@@ -16,13 +16,32 @@ class Application < ActiveRecord::Base
 		(event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month && event.start_date.day == day) || !(event.start_date.year >= Application.month_selection.year && event.start_date.month >= Application.month_selection.month) && (event.end_date.year >= Application.month_selection.year && event.end_date.month >= Application.month_selection.month && day == 1)
 	end
 	
+	def self.is_in_duration(event, day)
+		(event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month && day > event.start_date.day) || !(event.start_date.year >= Application.month_selection.year && event.start_date.month >= Application.month_selection.month) && (event.end_date.year >= Application.month_selection.year && event.end_date.month >= Application.month_selection.month && day == 1)
+	end
+	
 	def self.duration_in_selected_month(event)
+		
 		if event.end_date.year == Application.month_selection.year && event.end_date.month == Application.month_selection.month
-			(event.end_date-event.start_date).to_i/86400+1
-		elsif event.end_date.year > Application.month_selection.year || (event.end_date.year == Application.month_selection.year && event.end_date.month > Application.month_selection.month)
-			Application.month_selection_day_count-event.start_date.day+1
+			end_date = event.end_date.day
 		else
-			1
+			end_date = Application.month_selection_day_count 
 		end
+		
+		if event.start_date.year == Application.month_selection.year && event.start_date.month == Application.month_selection.month
+			start_date = event.start_date.day
+		else
+			start_date = 1 
+		end
+		
+		end_date - start_date + 1
+		
+		# if event.end_date.year == Application.month_selection.year && event.end_date.month == Application.month_selection.month
+		# 	(event.end_date-event.start_date).to_i/86400+1
+		# elsif event.end_date.year > Application.month_selection.year || (event.end_date.year == Application.month_selection.year && event.end_date.month > Application.month_selection.month)
+		# 	Application.month_selection_day_count-event.start_date.day+1
+		# else
+		# 	1
+		# end
 	end
 end
