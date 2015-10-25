@@ -19,16 +19,27 @@ body {
 .table-timeline-month .today {
   background-color: green;
 }
-.table-timeline-month tr {
-  text-align: center;
-}
 .table-timeline-month th {
   text-align: center;
   width: 500px;
+  height: 2em;
+  border-color: dimgray;
+  border-width: 1px;
+  border-style: solid;
 }
 .table-timeline-month td {
   text-align: center;
   width: 500px;
+  height: 2em;
+  word-break: break-all;
+  border-color: dimgray;
+  border-width: 1px;
+  border-style: solid;
+}
+.table-timeline-month .show-border {
+  border-color: dimgray;
+  border-width: 1px;
+  border-style: solid;
 }
 .table-timeline-month .occupied {
   background-color: SkyBlue;

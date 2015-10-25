@@ -28,21 +28,28 @@ body
 		background-color: green;
 	}
 	
-	tr
-	{
-		text-align: center;
-	}
-	
 	th
 	{
 		text-align: center;
-		width: @column-width;	
+		width: @column-width;
+		height: 2em;
+		.show-border;	
 	}
 	
 	td
 	{
 		text-align: center;
 		width: @column-width;
+		height: 2em;
+		word-break: break-all;
+		.show-border;
+	}
+	
+	.show-border
+	{
+		border-color: dimgray;
+		border-width: 1px;
+		border-style: solid;
 	}
 	
 	.occupied
